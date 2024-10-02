@@ -1,9 +1,24 @@
 import java.util.ArrayList;
 
+
+/**
+ * Class interfacing Engine, Car, and Passenger classes to build a train with a 
+ * certain engine type and multiple cars that passengers can board and get off of. 
+ * Attributes: 
+ *  engine: of type Engine representing fuel type 
+ *  cars: ArrayList to hold multiple objects of class Car on the train 
+ */
 public class Train {
     private Engine engine; // engine 
     private ArrayList<Car> cars; // cars attached  
 
+    /**
+     * Constructor setting up attributes of Train class
+     * @param fuelType of type FuelType representing the fuel type of the train's engine 
+     * @param fuelCapacity of type double representing the maximum fuel capacity of the train's engine
+     * @param nCars integer number of cars to be added to the train (placed in the cars ArrayList)
+     * @param passengerCapacity integer maximum number of passengers that can be on any one car
+     */
     public Train(FuelType fuelType, double fuelCapacity, int nCars, int passengerCapacity){
 
         this.engine = new Engine(fuelType, fuelCapacity); // new engine class
@@ -15,34 +30,54 @@ public class Train {
         }
     }
 
-    // accessors 
+    /**
+     * Accessor for engine type
+     * @return type of engine assigned to train 
+     */
     public Engine getEngine(){
         return this.engine; // returns engine type
     }
-
+    /**
+     * Accessor for getting a car at index i in the Train's cars ArrayList 
+     * @param i integer representing index requested car is at in the Train's ArrayList
+     * @return Car object located at index i in cars ArrayList
+     */
     public Car getCar(int i){
         return this.cars.get(i); // gets ith car 
     }
 
+    /**
+     * Calculates maximum capacity of entire train by summing max capacity of all cars on train.
+     * @return integer representing sum of capacities of all cars present in Train's cars ArrayList.
+     */
     public int getMaxCapacity(){
-        int max_capacity = 0; 
-        for(int i = 0; i < this.cars.size(); i++){
-            max_capacity += getCar(i).getCapacity(); // adds car's max capacity to max capacity
+        int max_capacity = 0;  // initilizes max capacity at 0 
+        for(int i = 0; i < this.cars.size(); i++){ // iterates over cars on train 
+            max_capacity += getCar(i).getCapacity(); // adds a single car's max capacity to max capacity
         }
         return max_capacity; // returns total capacity of all cars 
     }
 
+    /**
+     * Calculates number of seats remaining on the entire train by summing the remaining seats on all cars on the train. 
+     * @return integer representing number of seats left on entire train 
+     */
     public int seatsRemaining(){
-        int remaining_seats = 0; 
-        for(int i = 0; i < this.cars.size(); i++){
-            remaining_seats += getCar(i).seatsRemaining(); // adds car's max capacity to max capacity
+        int remaining_seats = 0; // initializes number of seats left to 0 
+        for(int i = 0; i < this.cars.size(); i++){ // iterates over all cars on the train
+            remaining_seats += getCar(i).seatsRemaining(); // adds current car's current capacity to total current capacity
         }
-        return remaining_seats; // returns total capacity of all cars 
+        return remaining_seats; // returns total remaining seats of all cars 
     }
 
+    /**
+     * Prints the names of passengers on all cars on the train by iterating over 
+     * each car on the train and printing the names of the passengers on that train 
+     */
     public void printManifest(){
-        for(int i = 0; i < this.cars.size(); i++){
+        for(int i = 0; i < this.cars.size(); i++){ // iterates over all cars on the train
             Car car = getCar(i); // gets car at index i in list 
+            System.out.println("Car " + i + ": "); // prints current car index 
             car.printManifest(); // prints manifest for car 
         }
     }
@@ -111,7 +146,7 @@ public class Train {
        System.out.println("");
        System.out.println("Train should be empty... anyone still aboard?");
 
-       train.printManifest();
+       train.printManifest(); // makes sure nobody is still on the train
 
 
     }
